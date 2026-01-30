@@ -9,6 +9,14 @@ def endgame():
 
 def game(MAX_TURNS=500):
     # DÉROULÉ DU TOUR
+    GRID_SIZE = 30
+    SHEEP_INITIAL_ENERGY = 20 
+    SHEEP_ENERGY_LOSS_PER_TURN= 1
+    REPRODUCTION_ENERGY_COST = 20
+    SHEEP_REPRODUCTION_THRESHOLD = 50
+    SHEEP_ENERGY_FROM_GRASS = 15
+    AGE_LIMITE = 50
+
     turn_number = 0
     while turn_number < MAX_TURNS:
         turn_number += 1
