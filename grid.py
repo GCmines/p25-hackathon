@@ -5,9 +5,8 @@ GRID_SIZE = 30
 class GRID:
     def __init__(self):
         self.SIZE = GRID_SIZE
-        self.GRASS = [[0*GRID_SIZE]*GRID_SIZE]
-        self.ELT = [[0*GRID_SIZE]*GRID_SIZE]
-
+        self.GRASS = [[0 for i in range(GRID_SIZE)]for j in range(GRID_SIZE)]
+        self.ELT = [[0 for i in range(GRID_SIZE)]for j in range(GRID_SIZE)]
 
     
 
