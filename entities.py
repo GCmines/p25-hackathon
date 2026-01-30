@@ -12,9 +12,7 @@ SHEEP_REPRODUCTION_THRESHOLD = 50
 SHEEP_ENERGY_FROM_GRASS = 15
 AGE_LIMITE = 50
 
-rd.randint(1,GRID_SIZE),rd.randint(1,GRID_SIZE)
-x = rd.randint(0,1)
-self.POSITION = (i+((rd.randint(0,1))*2-1)*(x-1),j+((rd.randint(0,1))*2-1)*x)
+
 class Sheep:
     def __init__(self,POSITION):
         self.POSITION = (POSITION)

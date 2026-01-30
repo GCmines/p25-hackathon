@@ -1,7 +1,6 @@
-
 from grid import GRID
 from entities import Sheep
-import random
+import random as rd
 
 
 
@@ -89,7 +88,7 @@ class Grass:                                                                    
 
     def new_grass(self):                                                            # Fonction d'apparition de l'herbe POUR LES CASES VIDES
         if self.STATE == 0:                                                             # Si la case ne contient pas d'herbe
-            if random.random(0, 1) <= self.GRASS_GROWTH_PROBABILITY:                        # On la compare à notre taux d'apparition spontané
+            if rd.random(0, 1) <= self.GRASS_GROWTH_PROBABILITY:                        # On la compare à notre taux d'apparition spontané
                 self.STATE = 1                                                              # Si on est inférieur on égal au taux, on fait apparaître l'herbe
                 self.TIME = 0                                                               # On réinitialise le temps de repousse de l'herbe
 
