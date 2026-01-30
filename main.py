@@ -6,7 +6,7 @@ GRID_SIZE = 30
 
 
 def endgame():
-
+    pass
 
 def game(MAX_TURNS=500):
     # DÉROULÉ DU TOUR
@@ -19,16 +19,16 @@ def game(MAX_TURNS=500):
     AGE_LIMITE = 50
     NB_SHEEP_INIT = 50
     NB_WOLVES_INIT = 10
-    NB_GRASS_INIT = int(0.3*GRIDSIZE**2)
+    NB_GRASS_INIT = int(0.3*GRID_SIZE**2)
     
     grid = GRID()
     def init_sheep_wolves_grass(n_sheep,n_wolves,n_grass,GRID):
         if n_sheep + n_wolves > GRID_SIZE**2:
             return False
         else:
-            L1 = [[(i,j) for j in range (GRID_SIZE)] for i range(GRID_SIZE)]
-            L2 = rd.sample(L1,nsheep+n_wolves)
-            Ls = rd.sample(L1,nsheep)
+            L1 = [[(i,j) for j in range (GRID_SIZE)] for i in range(GRID_SIZE)]
+            L2 = rd.sample(L1,n_sheep+n_wolves)
+            Ls = rd.sample(L1,n_sheep)
             for i,j in Ls:
                 GRID.ELT[i][j] = Sheep((i,j))
             for i,j in L2:
