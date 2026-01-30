@@ -1,4 +1,5 @@
 from entities import Sheep, Wolves, Grass
+import random as rd
 from grid import GRID
 GRID_SIZE = 30
 
@@ -8,7 +9,25 @@ def endgame():
 
 
 def game(MAX_TURNS=500):                                                                        # C'est cette fonction qui est lancée pour lancer la simulation
-    # DÉROULÉ DU TOUR
+
+
+    def init_sheep_wolves_grass(n_sheep,n_wolves,n_grass,GRID):
+        if n_sheep + n_wolves > GRID_SIZE**2:
+            return False
+        else:
+            L1 = [[(i,j) for j in range (GRID_SIZE)] for i range(GRID_SIZE)]
+            L2 = rd.sample(L1,nsheep+n_wolves)
+            Ls = rd.sample(L1,nsheep)
+            for i,j in Ls:
+                GRID.ELT[i][j] = Sheep((i,j))
+            for i,j in L2:
+                if (i,j) not in Ls:
+                    GRID.ELT[i][j] = Wolves((i,j))
+            Lg = rd.sample(L1,n_grass)
+            for i,j in Lg:
+                GRID.ELT[i][j] = Grass((i,j))
+     # DÉROULÉ DU TOUR
+    turn_number += 1
     GRID_SIZE = 30                                                                              # On initialise les différentes variables comme la taille de la grille
     SHEEP_INITIAL_ENERGY = 20 
     SHEEP_ENERGY_LOSS_PER_TURN= 1
