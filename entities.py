@@ -10,7 +10,8 @@ SHEEP_ENERGY_LOSS_PER_TURN= 1
 REPRODUCTION_ENERGY_COST = 20
 SHEEP_REPRODUCTION_THRESHOLD = 50
 SHEEP_ENERGY_FROM_GRASS = 15
-AGE_LIMITE = 50
+SHEEP_MAX_AGE = 50
+WOLF_MAX_AGE = 40
 WOLF_INITIAL_ENERGY = 40
 
 
@@ -58,7 +59,7 @@ class Sheep:
         self.ENERGY = self.ENERGY -SHEEP_ENERGY_LOSS_PER_TURN
 
     def age(self):
-        if (self.AGE<AGE_LIMITE) and (self.ENERGY >0):
+        if (self.AGE<SHEEP_MAX_AGE) and (self.ENERGY >0):
             self.AGE +=1
         else :
             i,j = self.POSITION
@@ -116,7 +117,7 @@ class Wolves:
                 GRID.ELT[i][j-1] = Wolves((i,j-1))
 
     def age(self, GRID):
-        if (self.age<AGE_LIMITE) and (self.energy >0):
+        if (self.age<WOLF_MAX_AGE) and (self.energy >0):
             self.age +=1
         else :
             i,j = self.position
