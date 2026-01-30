@@ -46,8 +46,10 @@ def game(MAX_TURNS=500):
                 if (i,j) not in Ls:
                     GRID.ELT[i][j] = Wolves((i,j))
             Lg = rd.sample(L1,n_grass)
-            for i,j in Lg:
+            for i,j in L1:
                 GRID.ELT[i][j] = Grass(0, 0, GRASS_REGROWTH_TIME, GRASS_GROWTH_PROBABILITY)
+            for i,j in Lg:
+                GRID.ELT[i][j].STATE = 1 
     
     init_sheep_wolves_grass(NB_SHEEP_INIT,NB_WOLVES_INIT,NB_GRASS_INIT,grid)
     pyxel.init(GRID_SIZE,GRID_SIZE,title = "Ecosystème",fps = 10)
