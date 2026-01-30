@@ -27,8 +27,9 @@ class Wolves:
         
 
     def death(self):
+        i,j = self.position
         if self.energy <= 0 or self.age > WOLF_MAX_AGE:
-            self.ALIVE = False
+            GRID.ELT[i][j] == 0
 
 
 
