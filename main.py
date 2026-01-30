@@ -9,7 +9,7 @@ def endgame():
 
 
 def initgame():
-    
+
 
 
 def tour(MAX_TURNS=500):
@@ -39,8 +39,8 @@ def tour(MAX_TURNS=500):
     if turn_number == MAX_TURNS:                                    # On arrête le jeu si on a atteint le nombre de tours maximum
         endgame()
     number_of_animals = 0
-    for x in range(0, GRID_SIZE - 1):                                   # On parcourt les x et y
-        for y in range(0, GRID_SIZE - 1):
+    for x in GRID_SIZE:                                   # On parcourt les x et y
+        for y in GRID_SIZE:
             if isinstance(GRID.ELT[x][y], Sheep) or isinstance(GRID.ELT[x][y], Wolves):
                 number_of_animals += 1
     if number_of_animals == 0:
