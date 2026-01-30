@@ -56,7 +56,8 @@ def tour(MAX_TURNS=500):
         for y in range(0, GRID_SIZE - 1):
             if isinstance(GRID.ELT[x][y], Wolves):
                 wolf = GRID.ELT[x][y]
-                wolf.death()
+                wolf.age()
+                wolf.mouvement()
 
 
     # PHASE 5 : Vérification des morts???
