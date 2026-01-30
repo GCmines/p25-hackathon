@@ -20,6 +20,8 @@ def game(MAX_TURNS=500):
     REPRODUCTION_ENERGY_COST = 20
     SHEEP_REPRODUCTION_THRESHOLD = 50
     SHEEP_ENERGY_FROM_GRASS = 15
+    GRASS_REGROWTH_TIME = 7
+    GRASS_GROWTH_PROBABILITY = 0.08
     AGE_LIMITE = 50
     NB_SHEEP_INIT = 50
     NB_WOLVES_INIT = 10
@@ -31,7 +33,11 @@ def game(MAX_TURNS=500):
         if n_sheep + n_wolves > GRID_SIZE**2:
             return False
         else:
-            L1 = [[(i,j) for j in range (GRID_SIZE)] for i in range(GRID_SIZE)]
+            T = [[(i,j) for j in range (GRID_SIZE)] for i in range(GRID_SIZE)]
+            L1 = []
+            for ligne in T:
+                for elt in ligne:
+                    L1.append(elt)
             L2 = rd.sample(L1,n_sheep+n_wolves)
             Ls = rd.sample(L1,n_sheep)
             for i,j in Ls:
@@ -41,7 +47,7 @@ def game(MAX_TURNS=500):
                     GRID.ELT[i][j] = Wolves((i,j))
             Lg = rd.sample(L1,n_grass)
             for i,j in Lg:
-                GRID.ELT[i][j] = Grass((i,j))
+                GRID.ELT[i][j] = Grass(0, 0, GRASS_REGROWTH_TIME, GRASS_GROWTH_PROBABILITY)
     
     init_sheep_wolves_grass(NB_SHEEP_INIT,NB_WOLVES_INIT,NB_GRASS_INIT,grid)
     pyxel.init(GRID_SIZE,GRID_SIZE,title = "Ecosystème",fps = 10)
