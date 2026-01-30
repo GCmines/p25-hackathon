@@ -8,6 +8,8 @@ GRID_SIZE = 30
 def endgame():
 
 
+def initgame():
+
 
 # DÉROULÉ DU TOUR
 # PHASE 1 : INCREMENT DE L'AGE DES ANIMAUX
@@ -33,8 +35,8 @@ def tour(MAX_TURNS=500):
 
 
     # PHASE 2 : MISE A JOUR DE L'HERBE
-    for x in range(0, GRID_SIZE - 1):                                   # On parcourt les x et y
-        for y in range(0, GRID_SIZE - 1):
+    for x in GRID_SIZE:                                   # On parcourt les x et y
+        for y in GRID_SIZE:
             Grass.eaten_grass(x, y)                                     # On regarde si l'herbe a été mangée
             Grass.new_grass(x, y)                                       # On regarde si l'herbe peut apparaitre aléatoirement
             Grass.regrowth(x, y)                                        # On fait repousser l'herbe en fonction de son temps de repousse
@@ -51,8 +53,8 @@ def tour(MAX_TURNS=500):
     if turn_number == MAX_TURNS:                                    # On arrête le jeu si on a atteint le nombre de tours maximum
         endgame()
     number_of_animals = 0
-    for x in range(0, GRID_SIZE - 1):                                   # On parcourt les x et y
-        for y in range(0, GRID_SIZE - 1):
+    for x in GRID_SIZE:                                   # On parcourt les x et y
+        for y in GRID_SIZE:
             if isinstance(GRID.ELT[x][y], Sheep) or isinstance(GRID.ELT[x][y], Wolves):
                 number_of_animals += 1
     if number_of_animals == 0:

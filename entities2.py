@@ -102,14 +102,9 @@ class Grass:                                                                    
 
     def new_grass(self, x, y):                                                        # Fonction d'apparition de l'herbe POUR LES CASES VIDES
         if GRID.GRASS[x][y].STATE == 0:                                             # Si la case ne contient pas d'herbe
-            randomnumber = random.randint(1, 100)                                       # On créé un nombre random entre 1 et 100
-            if randomnumber <= self.GRASS_GROWTH_PROBABILITY*100:                       # On la compare à notre taux d'apparition spontané
+            if random.random(0, 1) <= self.GRASS_GROWTH_PROBABILITY:                       # On la compare à notre taux d'apparition spontané
                 GRID.GRASS[x][y].STATE = 1                                                  # Si on est inférieur on égal au taux, on fait apparaître l'herbe
-                self.TIME = 0                                                               # On réinitialise le temps de repousse de l'herbe 
-            else :                                                                      # Sinon
-                GRID.GRASS[x][y].STATE == 0                                                 # On laisse la case vide
-        else :
-            self.TIME = 0                                                           # Si la case contient de l'herbe, on ne fait rien (si ce n'est laissé le temps de repousse à zéro)
+                self.TIME = 0                                                               # On réinitialise le temps de repousse de l'herbe
 
     def regrowth(self, x, y):                                                         # Fonction de repousse 
         if GRID.GRASS[x][y].STATE == 0:                                             # Si la case ne contient pas d'herbe
