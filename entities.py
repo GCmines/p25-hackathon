@@ -12,9 +12,7 @@ SHEEP_REPRODUCTION_THRESHOLD = 50
 SHEEP_ENERGY_FROM_GRASS = 15
 AGE_LIMITE = 50
 
-rd.randint(1,GRID_SIZE),rd.randint(1,GRID_SIZE)
-x = rd.randint(0,1)
-self.POSITION = (i+((rd.randint(0,1))*2-1)*(x-1),j+((rd.randint(0,1))*2-1)*x)
+
 class Sheep:
     def __init__(self,POSITION):
         self.POSITION = (POSITION)
@@ -128,7 +126,6 @@ class Wolves:
             self.position = eat(self)[1]
             x, y = self.position 
             GRID.ELT[x][y] = self
-
         else :
             i,j = self.position
             if j<GRID_SIZE-1 and GRID.GRASS[i][j+1].STATE == 1 and GRID.ELT[i][j+1] == 0:
@@ -170,7 +167,7 @@ class Grass:                                                                    
 
     def new_grass(self):                                                            # Fonction d'apparition de l'herbe POUR LES CASES VIDES
         if self.STATE == 0:                                                             # Si la case ne contient pas d'herbe
-            if random.random(0, 1) <= self.GRASS_GROWTH_PROBABILITY:                        # On la compare à notre taux d'apparition spontané
+            if rd.random(0, 1) <= self.GRASS_GROWTH_PROBABILITY:                        # On la compare à notre taux d'apparition spontané
                 self.STATE = 1                                                              # Si on est inférieur on égal au taux, on fait apparaître l'herbe
                 self.TIME = 0                                                               # On réinitialise le temps de repousse de l'herbe
 

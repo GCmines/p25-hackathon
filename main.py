@@ -7,8 +7,36 @@ GRID_SIZE = 30
 def endgame():
 
 
+
+def initgame():
+    def init_sheep_wolves_grass(n_sheep,n_wolves,n_grass,GRID):
+        if n_sheep + n_wolves > GRID_SIZE**2:
+            return False
+        else:
+            L1 = [[(i,j) for j in range (GRID_SIZE)] for i range(GRID_SIZE)]
+            L2 = rd.sample(L1,nsheep+n_wolves)
+            Ls = rd.sample(L1,nsheep)
+            for i,j in Ls:
+                GRID.ELT[i][j] = Sheep((i,j))
+            for i,j in L2:
+                if (i,j) not in Ls:
+                    GRID.ELT[i][j] = Wolves((i,j))
+            Lg = rd.sample(L1,n_grass)
+            for i,j in Lg:
+                GRID.ELT[i][j] = Grass((i,j))
+     # DÉROULÉ DU TOUR
+    turn_number += 1
+
 def game(MAX_TURNS=500):
     # DÉROULÉ DU TOUR
+    GRID_SIZE = 30
+    SHEEP_INITIAL_ENERGY = 20 
+    SHEEP_ENERGY_LOSS_PER_TURN= 1
+    REPRODUCTION_ENERGY_COST = 20
+    SHEEP_REPRODUCTION_THRESHOLD = 50
+    SHEEP_ENERGY_FROM_GRASS = 15
+    AGE_LIMITE = 50
+
     turn_number = 0
     while turn_number < MAX_TURNS:
         turn_number += 1
@@ -23,24 +51,6 @@ def game(MAX_TURNS=500):
 
 
 def tour():
-
-# DÉROULÉ DU TOUR
-# PHASE 1 : INCREMENT DE L'AGE DES ANIMAUX
-for ligne in GRID.ELT:
-    for elt in ligne:
-        if isinstance(elt, Sheep) or isinstance(elt, Wolves):
-            elt.age()
-            
-# PHASE 2 : MISE A JOUR DE L'HERBE
-for x in range(0, GRID_SIZE - 1):                                   # On parcourt les x et y
-    for y in range(0, GRID_SIZE - 1):
-        Grass.eaten_grass(x, y)                                     # On regarde si l'herbe a été mangée
-        Grass.new_grass(x, y)                                       # On regarde si l'herbe peut apparaitre aléatoirement
-        Grass.regrowth(x, y)                                        # On fait repousser l'herbe en fonction de son temps de repousse
-
-
-def tour(MAX_TURNS=500):
-
 
     # PHASE 1 : INCREMENT DE L'AGE DES ANIMAUX
     for ligne in GRID.ELT:
