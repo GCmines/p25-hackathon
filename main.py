@@ -59,7 +59,7 @@ def game(MAX_TURNS=500):
     turn_number = 0
     while (turn_number < MAX_TURNS) and (number_of_animals>0):
         turn_number += 1
-        tour(grid)
+        tour(grid, MAX_TURNS, turn_number)
         number_of_animals = 0
         for ligne in grid.ELT:
             for elt in ligne:
@@ -71,7 +71,7 @@ def game(MAX_TURNS=500):
     endgame()
 
 
-def tour(grid):
+def tour(grid, nbmaxtours, touractuel):
     time.sleep(1)
     # PHASE 1 : INCREMENT DE L'AGE DES ANIMAUX
     for ligne in grid.ELT:
@@ -81,6 +81,23 @@ def tour(grid):
                 
                                     
     # PHASE 2 : MISE A JOUR DE L'HERBE
+    saison = nbmaxtours//4
+    if touractuel <= nbmaxtours:
+        if touractuel < 3*saison:
+            if touractuel < 2*saison:
+                if touractuel < saison:                 # hiver
+                    GRASS_REGROWTH_TIME = 7
+                    GRASS_GROWTH_PROBABILITY = 0.08
+                else:                                   # printemps
+                    GRASS_REGROWTH_TIME = 6
+                    GRASS_GROWTH_PROBABILITY = 0.09
+            else:                                       # été
+                GRASS_REGROWTH_TIME = 5
+                GRASS_GROWTH_PROBABILITY = 0.08
+        else:                                           # automne
+            GRASS_REGROWTH_TIME = 6
+            GRASS_GROWTH_PROBABILITY = 0.09
+
     for ligne in grid.ELT:
         for elt in ligne:
             elt.eaten_grass()                                     # On regarde si l'herbe a été mangée

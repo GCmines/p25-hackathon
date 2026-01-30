@@ -24,6 +24,8 @@ Exécuter le programme main.py pour lancer la simulation.
 |Le nombre de moutons à l'initialisation             |   NB_SHEEP_INIT                   |   50|
 |Le nombre de loups à l'initialisation               |   NB_WOLVES_INIT                  |   10|
 |La proportion d'herbe à l'initialisation            |   INITIAL_GRASS_COVERAGE          |   0.3|
+|GRASS_REGROWTH_TIME
+|GRASS_GROWTH_PROBABILITY
 
 
 
@@ -77,3 +79,16 @@ On affiche la situation obtenue à partir des phases précédentes.
 
 PHASE 8 : Vérifications des conditions d'arrêt\
 Si le nombre de tours maximum a été atteint (par défaut, 500), ou s'il n'y a plus d'animaux, on met fin à la simulation.
+
+
+### Les bonus
+
+Les saisons\
+Le nombre de tours est divisé en quatre portions représentant les quatre saisons.\
+Cette variation de saison a pour seul effet de modifier la croissance de l'herbe.\
+|Saison| Type| Temps de repousse | Probabilité de repousse|
+|---|---|:-:|:-:|
+|Première saison | hiver| 7|0.08|
+|Deuxième saison | printemps| 6 | 0.09|
+|Troisième saison | été | 5| 0.08|
+|Quatrième saison | automne | 6|0.09|
