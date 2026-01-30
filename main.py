@@ -9,6 +9,21 @@ def endgame():
 
 
 def initgame():
+    def init_sheep_wolves_grass(n_sheep,n_wolves,n_grass,GRID):
+        if n_sheep + n_wolves > GRID_SIZE**2:
+            return False
+        else:
+            L1 = [[(i,j) for j in range (GRID_SIZE)] for i range(GRID_SIZE)]
+            L2 = rd.sample(L1,nsheep+n_wolves)
+            Ls = rd.sample(L1,nsheep)
+            for i,j in Ls:
+                GRID.ELT[i][j] = Sheep((i,j))
+            for i,j in L2:
+                if (i,j) not in Ls:
+                    GRID.ELT[i][j] = Wolves((i,j))
+            Lg = rd.sample(L1,n_grass)
+            for i,j in Lg:
+                GRID.ELT[i][j] = Grass((i,j))
      # DÉROULÉ DU TOUR
     turn_number += 1
     turn_number = 0

@@ -1,4 +1,6 @@
-import random as rd 
+import random as rd
+import numpy as np
+
 GRID_SIZE = 30
 SHEEP_INITIAL_ENERGY = 20 
 SHEEP_ENERGY_LOSS_PER_TURN= 1
