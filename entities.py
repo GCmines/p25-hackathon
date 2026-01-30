@@ -2,6 +2,8 @@ import random as rd
 GRID_SIZE = 30
 SHEEP_INITIAL_ENERGY = 20 
 rd.randint(1,GRID_SIZE),rd.randint(1,GRID_SIZE)
+x = rd.randint(0,1)
+self.POSITION = (i+((rd.randint(0,1))*2-1)*(x-1),j+((rd.randint(0,1))*2-1)*x)
 class Sheep:
     def __init__(self,POSITION):
         self.POSITION = (POSITION)
@@ -11,23 +13,34 @@ class Sheep:
     
     def deplacement(self,GRID):
         i,j = self.POSITION
-        GRID.SHEEP[i][j] = 0
-        if GRID.GRASS[i][j+1].STATE == 1 and GRID.SHEEP[i][j+1] == 0:
+        if j<GRID_SIZE-1 and GRID.GRASS[i][j+1].STATE == 1 and GRID.ELT[i][j+1] == None:
             self.POSITION = (i,j+1)
             self.eat()
-        elif GRID.GRASS[i][j-1].STATE == 1 and GRID.SHEEP[i][j+1] == :
+        elif j>0 and GRID.GRASS[i][j-1].STATE == 1 and GRID.ELT[i][j-1] == None:
             self.POSITION = (i, j-1)
             self.eat()
-        elif GRID.GRASS[i-1][j].STATE == 1:
+        elif i>0 and GRID.GRASS[i-1][j].STATE == 1 and GRID.ELT[i][j+1] == None:
             self.POSITION = (i-1,j)
             self.eat()
-        elif GRID.GRASS[i+1][j].STATE == 1:
+        elif i<GRID_SIZE-1 and GRID.GRASS[i+1][j].STATE == 1 and GRID.ELT[i][j+1] == None:
             self.POSITION = (i+1,j)
             self.eat()
         else: 
-            x = rd.randint(0,1)
-            self.POSITION = (i+((rd.randint(0,1))*2-1)*(x-1),j+((rd.randint(0,1))*2-1)*x)
-    
+            position = []
+            if j<GRID_SIZE-1 and GRID.ELT[i][j+1] == None :
+                position.append((i,j+1))
+            elif j>0 and GRID.ELT[i][j+1] == None :
+                position.append((i,j-1))
+            elif i>0 and GRID.ELT[i][j+1] == None :
+                position.append((i-1,j))
+            elif i<GRID_SIZE-1 and GRID.ELT[i][j+1] == None :
+                position.append((i-1,j))
+            if position != []:
+                self.POSITION = rd.choice(position)
+        sheep = GRID.ELT[i,j]
+        GRID.ELT[i,j] = None
+        GRID.ELT[self.POSITION[0]][self.POSITION[1]]
+        
     def eat(self):
         self.ENERGY= self.ENERGY +SHEEP_ENERGY_FROM_GRASS
         
