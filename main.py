@@ -1,11 +1,12 @@
 from entities import Sheep
 from entities2 import Wolves, Grass
 from grid import GRID
+import pyxel 
 GRID_SIZE = 30
 
 
 
-def endgame():
+def endgame(): 
 
 
 def initgame():
@@ -43,10 +44,34 @@ def tour(MAX_TURNS=500):
 
 
     # PHASE 3 : MOUTONS
+
+    for k in range(GRID_SIZE):
+        for l in range(GRID_SIZE):
+            # repérage des moutons dans la grille
+            if isinstance(grid.ELT[k][l],Sheep):
+                current_sheep = grid.ELT[k][l]
+                current_sheep.deplacement(current_sheep,grid)   # déplace et alimente les moutons
+                current_sheep.energy(current_sheep)
+
     # PHASE 4 : LOUPS
     # PHASE 5 : Vérification des morts???
     # PHASE 6 : REPRODUCTION
     # PHASE 7 : AFFICHAGE DE L'ÉTAT OBTENU
+    
+    # faire le lien entre classe et affichage
+    pyxel.init(GRID_SIZE,GRID_SIZE,title = "Ecosystème")
+    def draw(grille,taille):
+        for a in range(taille):
+            for b in range(taille):
+                if isinstance(grille.ELT[k][l],Sheep):
+                    pyxel.pset(a,b,7)
+                elif isinstance(grille.ELT[k][l],Wolves):
+                    pyxel.pset(a,b,13)
+                elif (grille.GRASS[a][b].STATE ==1):
+                    pyxel.pset(a,b,11) 
+                else :
+                    pyxel.pset(a,b,9)
+    pyxel.run(draw(grid,GRID_SIZE))
 
 
     # PHASE 8 : VÉRIFICATION DES CONDITIONS D'ARRÊT
