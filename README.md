@@ -3,6 +3,7 @@ FAIRE CTRL+SHIFT+V si le markdown apparaît sans mise en forme
 
 ## LANCER LA SIMULATION
 
+Exécuter le programme main.py pour lancer la simulation.
 
 ## PARAMETRES MODIFIABLES :
 
