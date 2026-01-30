@@ -5,8 +5,8 @@ GRID_SIZE = 30
 class GRID:
     def __init__(self):
         self.SIZE = GRID_SIZE
-        self.GRASS = np.zeros(shape =(GRID_SIZE,GRID_SIZE))
-        self.ELT = np.zeros(shape = (GRID_SIZE,GRID_SIZE))
+        self.GRASS = [[0*GRID_SIZE]*GRID_SIZE]
+        self.ELT = [[0*GRID_SIZE]*GRID_SIZE]
 
 
     
