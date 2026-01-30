@@ -11,6 +11,7 @@ def endgame():
 def initgame():
 
 
+
 # DÉROULÉ DU TOUR
 # PHASE 1 : INCREMENT DE L'AGE DES ANIMAUX
 for ligne in GRID.ELT:
@@ -44,6 +45,13 @@ def tour(MAX_TURNS=500):
 
     # PHASE 3 : MOUTONS
     # PHASE 4 : LOUPS
+    for x in range(0, GRID_SIZE - 1):                                 
+        for y in range(0, GRID_SIZE - 1):
+            if isinstance(GRID.ELT[x][y], Wolves):
+                wolf = GRID.ELT[x][y]
+                wolf.death()
+
+
     # PHASE 5 : Vérification des morts???
     # PHASE 6 : REPRODUCTION
     # PHASE 7 : AFFICHAGE DE L'ÉTAT OBTENU
