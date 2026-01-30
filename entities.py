@@ -9,6 +9,7 @@ class Sheep:
         self.POSITION = (POSITION)
         self.AGE = 0
         self.ENERGY = SHEEP_INITIAL_ENERGY
+        self.ALIVE = True
     
     def deplacement(self,GRID):
         i,j = self.POSITION
@@ -41,4 +42,28 @@ class Sheep:
         GRID.ELT[self.POSITION[0]][self.POSITION[1]] = sheep
         
     def eat(self):
+        self.ENERGY= self.ENERGY +SHEEP_ENERGY_FROM_GRASS
+        
+
+    def age(self):
+        if (self.AGE<AGE_LIMITE) and (self.ALIVE):
+            self.AGE +=1
+            self.ENERGY = self.ENERGY -SHEEP_ENERGY_LOSS_PER_TURN
+        elif self.AGE>=AGE_LIMITE :
+            self.ALIVE = False
+    
+    def reproduction(self,GRID):
+        if self.ENERGY>SHEEP_REPRODUCTION_THRESHOLD:
+            i,j = self.POSITION
+            self.ENERGY = self.ENERGY - REPRODUCTION_ENERGY_COST
+            if (i+1<GRID_SIZE) and not(isinstance(GRID.ELT[i+1][j],Sheep) or isinstance(GRID.ELT[i+1][j],Wolves)):
+                GRID.ELT[i+1][j] = Sheep((i+1,j))
+            elif (i-1>=0) and not(isinstance(GRID.ELT[i-1][j],Sheep) or isinstance(GRID.ELT[i-1][j],Wolves)):
+                GRID.ELT[i-1][j] = Sheep((i-1,j))
+            elif (j+1<GRID_SIZE) and not(isinstance(GRID.ELT[i][j+1],Sheep) or isinstance(GRID.ELT[i][j+1],Wolves)):            
+                GRID.ELT[i][j+1] = Sheep((i,j+1))
+            elif (j-1>0) and not(isinstance(GRID.ELT[i][j-1],Sheep) or isinstance(GRID.ELT[i][j-1],Wolves)):            
+                GRID.ELT[i][j-1] = Sheep((i,j-1))
+            
+    
 
