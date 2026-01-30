@@ -42,6 +42,34 @@ class Wolves:
         if eat(self)[0] : 
             self.position = eat(self)[1]
         else :
+            i,j = self.position
+            if j<GRID_SIZE-1 and GRID.GRASS[i][j+1].STATE == 1 and GRID.ELT[i][j+1] == 0:
+                self.position = (i,j+1)
+                self.eat()
+            elif j>0 and GRID.GRASS[i][j-1].STATE == 1 and GRID.ELT[i][j-1] == 0:
+                self.position = (i, j-1)
+                self.eat()
+            elif i>0 and GRID.GRASS[i-1][j].STATE == 1 and GRID.ELT[i][j+1] == 0:
+                self.position = (i-1,j)
+                self.eat()
+            elif i<GRID_SIZE-1 and GRID.GRASS[i+1][j].STATE == 1 and GRID.ELT[i][j+1] == 0:
+                self.position = (i+1,j)
+                self.eat()
+            else: 
+                positions = []
+                if j<GRID_SIZE-1 and GRID.ELT[i][j+1] == 0 :
+                    positions.append((i,j+1))
+                elif j>0 and GRID.ELT[i][j+1] == 0 :
+                    positions.append((i,j-1))
+                elif i>0 and GRID.ELT[i][j+1] == 0 :
+                    positions.append((i-1,j))
+                elif i<GRID_SIZE-1 and GRID.ELT[i][j+1] == 0 :
+                    positions.append((i-1,j))
+                if positions != []:
+                    self.position = rd.choice(positions)
+            sheep = GRID.ELT[i,j]
+            GRID.ELT[i,j] = 0
+            GRID.ELT[self.position[0]][self.position[1]]
             
 
 
