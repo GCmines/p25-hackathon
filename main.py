@@ -2,12 +2,15 @@ from entities import Sheep, Wolves, Grass
 import random as rd
 from grid import GRID
 import pyxel 
+import time 
 GRID_SIZE = 30
 
 
 
 def endgame():
-    pass
+    pyxel.quit()
+
+
 
 def game(MAX_TURNS=500):
     # DÉROULÉ DU TOUR
@@ -22,6 +25,7 @@ def game(MAX_TURNS=500):
     NB_WOLVES_INIT = 10
     NB_GRASS_INIT = int(0.3*GRID_SIZE**2)
     
+    ## initialisation
     grid = GRID()
     def init_sheep_wolves_grass(n_sheep,n_wolves,n_grass,GRID):
         if n_sheep + n_wolves > GRID_SIZE**2:
@@ -40,9 +44,10 @@ def game(MAX_TURNS=500):
                 GRID.ELT[i][j] = Grass((i,j))
     
     init_sheep_wolves_grass(NB_SHEEP_INIT,NB_WOLVES_INIT,NB_GRASS_INIT,grid)
-    
+    pyxel.init(GRID_SIZE,GRID_SIZE,title = "Ecosystème",fps = 10)
+    pyxel.show()    
     turn_number = 0
-    while turn_number < MAX_TURNS:
+    while (turn_number < MAX_TURNS) and (number_of_animals>0):
         turn_number += 1
         tour(grid)
         number_of_animals = 0
@@ -50,8 +55,10 @@ def game(MAX_TURNS=500):
             for y in GRID_SIZE:
                 if isinstance(GRID.ELT[x][y], Sheep) or isinstance(GRID.ELT[x][y], Wolves):
                     number_of_animals += 1
-        if number_of_animals == 0:
-            endgame()
+
+    
+        
+    endgame()
 
 
 def tour(grid):
@@ -90,8 +97,6 @@ def tour(grid):
                 wolf.mouvement()
 
 
-    # PHASE 5 : Vérification des morts???
-
     # PHASE 6 : REPRODUCTION
     for ligne in grid.ELT:
         for elt in ligne:
@@ -99,10 +104,23 @@ def tour(grid):
                 elt.reproduction()
     
     # PHASE 7 : AFFICHAGE DE L'ÉTAT OBTENU
+    pyxel.run(draw(grid,GRID_SIZE))
     
     # faire le lien entre classe et affichage
-    pyxel.init(GRID_SIZE,GRID_SIZE,title = "Ecosystème")
-    def draw(grille,taille):
+  
+
+    # PHASE 8 : VÉRIFICATION DES CONDITIONS D'ARRÊT
+    number_of_animals = 0                                                                       # On reset notre compteur d'animaux
+    for x in GRID_SIZE:                                                                         # On parcourt les x et y
+        for y in GRID_SIZE:
+            if isinstance(grid.ELT[x][y], Sheep) or isinstance(grid.ELT[x][y], Wolves):         # On regarde s'il y a des animaux sur notre grille
+                number_of_animals += 1
+    if number_of_animals == 0:                                                                  # S'il n'y a pas d'animaux, c'est la fin de la simulation
+        endgame()
+
+
+## affichage graphique
+def draw(grille,taille):
         for a in range(taille):
             for b in range(taille):
                 if isinstance(grille.ELT[k][l],Sheep):
@@ -113,14 +131,5 @@ def tour(grid):
                     pyxel.pset(a,b,11) 
                 else :
                     pyxel.pset(a,b,9)
-    pyxel.run(draw(grid,GRID_SIZE))
-
-
-    # PHASE 8 : VÉRIFICATION DES CONDITIONS D'ARRÊT
-    number_of_animals = 0                                                                       # On reset notre compteur d'animaux
-    for x in GRID_SIZE:                                                                         # On parcourt les x et y
-        for y in GRID_SIZE:
-            if isinstance(grid.ELT[x][y], Sheep) or isinstance(grid.ELT[x][y], Wolves):         # On regarde s'il y a des animaux sur notre grille
-                number_of_animals += 1
-    if number_of_animals == 0:                                                                  # S'il n'y a pas d'animaux, c'est la fin de la simulation
-        endgame()
+        
+game(500)
