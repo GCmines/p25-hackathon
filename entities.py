@@ -90,12 +90,16 @@ class Wolves:
     def eat(self, GRID):
         x, y = self.position
         if x != 0 and isinstance(GRID.ELT[x-1][y], Sheep) :
+            GRID.ELT[x][y] = 0
             return (True, (x-1,y))
         if x != GRID_SIZE - 1 and isinstance(GRID.ELT[x+1][y], Sheep):
+            GRID.ELT[x][y] = 0
             return (True, (x+1,y))
         if y != 0 and isinstance(GRID.ELT[x][y-1], Sheep):
+            GRID.ELT[x][y] = 0
             return (True, (x,y-1))
         if y != GRID_SIZE - 1 and isinstance(GRID.ELT[x][y+1], Sheep):
+            GRID.ELT[x][y] = 0
             return (True, (x,y+1))
         return (False, (x,y))
 
@@ -122,6 +126,9 @@ class Wolves:
     def movement(self, GRID):
         if eat(self)[0] : 
             self.position = eat(self)[1]
+            x, y = self.position 
+            GRID.ELT[x][y] = self
+
         else :
             i,j = self.position
             if j<GRID_SIZE-1 and GRID.GRASS[i][j+1].STATE == 1 and GRID.ELT[i][j+1] == 0:
@@ -148,9 +155,8 @@ class Wolves:
                     positions.append((i-1,j))
                 if positions != []:
                     self.position = rd.choice(positions)
-            sheep = GRID.ELT[i,j]
             GRID.ELT[i,j] = 0
-            GRID.ELT[self.position[0]][self.position[1]]
+            GRID.ELT[self.position[0]][self.position[1]] = self
             
 
 
