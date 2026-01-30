@@ -30,13 +30,6 @@ class Wolves:
         if self.energy <= 0 or self.age > WOLF_MAX_AGE:
             GRID.ELT[i][j] == 0
 
-
-
-    def reproduction(self):
-        if self.energy > WOLF_REPRODUCTION_THRESHOLD:
-            self.energy -= REPRODUCTION_ENERGY_COST
-            return True
-
     def reproduction(self,GRID):
         if self.energy>SHEEP_REPRODUCTION_THRESHOLD:
             i,j = self.position
@@ -49,7 +42,7 @@ class Wolves:
                 GRID.ELT[i][j+1] = Wolves((i,j+1))
             elif (j-1>0) and (GRID.ELT[i][j-1]==0):            
                 GRID.ELT[i][j-1] = Wolves((i,j-1))
-                
+
     def age(self):
         if (self.age<AGE_LIMITE) and (self.energy >0):
             self.age +=1
