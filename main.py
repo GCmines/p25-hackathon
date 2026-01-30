@@ -1,11 +1,11 @@
-from entities import Sheep
-from entities2 import Wolves, Grass
+from entities import Sheep, Wolves, Grass
 from grid import GRID
 GRID_SIZE = 30
 
 
 
 def endgame():
+
 
 
 def initgame():
@@ -26,12 +26,31 @@ def initgame():
                 GRID.ELT[i][j] = Grass((i,j))
      # DÉROULÉ DU TOUR
     turn_number += 1
+
+def game(MAX_TURNS=500):
+    # DÉROULÉ DU TOUR
+    GRID_SIZE = 30
+    SHEEP_INITIAL_ENERGY = 20 
+    SHEEP_ENERGY_LOSS_PER_TURN= 1
+    REPRODUCTION_ENERGY_COST = 20
+    SHEEP_REPRODUCTION_THRESHOLD = 50
+    SHEEP_ENERGY_FROM_GRASS = 15
+    AGE_LIMITE = 50
+
     turn_number = 0
+    while turn_number < MAX_TURNS:
+        turn_number += 1
+        tour()
+        number_of_animals = 0
+        for x in GRID_SIZE:                                   # On parcourt les x et y
+            for y in GRID_SIZE:
+                if isinstance(GRID.ELT[x][y], Sheep) or isinstance(GRID.ELT[x][y], Wolves):
+                    number_of_animals += 1
+        if number_of_animals == 0:
+            endgame()
 
 
-
-def tour(MAX_TURNS=500):
-   
+def tour():
 
     # PHASE 1 : INCREMENT DE L'AGE DES ANIMAUX
     for ligne in GRID.ELT:
@@ -52,6 +71,12 @@ def tour(MAX_TURNS=500):
 
 
     # PHASE 4 : LOUPS
+    for x in range(0, GRID_SIZE - 1):                                 
+        for y in range(0, GRID_SIZE - 1):
+            if isinstance(GRID.ELT[x][y], Wolves):
+                wolf = GRID.ELT[x][y]
+                wolf.age()
+                wolf.mouvement()
 
 
     # PHASE 5 : Vérification des morts???
@@ -66,12 +91,4 @@ def tour(MAX_TURNS=500):
 
 
     # PHASE 8 : VÉRIFICATION DES CONDITIONS D'ARRÊT
-    if turn_number == MAX_TURNS:                                    # On arrête le jeu si on a atteint le nombre de tours maximum
-        endgame()
-    number_of_animals = 0
-    for x in GRID_SIZE:                                   # On parcourt les x et y
-        for y in GRID_SIZE:
-            if isinstance(GRID.ELT[x][y], Sheep) or isinstance(GRID.ELT[x][y], Wolves):
-                number_of_animals += 1
-    if number_of_animals == 0:
-        endgame()
+

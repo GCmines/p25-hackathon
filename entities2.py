@@ -1,7 +1,6 @@
-
 from grid import GRID
 from entities import Sheep
-import random
+import random as rd
 
 
 
@@ -23,19 +22,6 @@ class Wolves:
         if y != GRID_SIZE - 1 and isinstance(GRID.ELT[x][y+1], Sheep):
             return (True, (x,y+1))
         return (False, (x,y))
-        
-
-    def death(self, GRID):
-        i,j = self.position
-        if self.energy <= 0 or self.age > WOLF_MAX_AGE:
-            GRID.ELT[i][j] == 0
-
-
-
-    def reproduction(self):
-        if self.energy > WOLF_REPRODUCTION_THRESHOLD:
-            self.energy -= REPRODUCTION_ENERGY_COST
-            return True
 
     def reproduction(self,GRID):
         if self.energy>SHEEP_REPRODUCTION_THRESHOLD:
@@ -49,8 +35,8 @@ class Wolves:
                 GRID.ELT[i][j+1] = Wolves((i,j+1))
             elif (j-1>0) and (GRID.ELT[i][j-1]==0):            
                 GRID.ELT[i][j-1] = Wolves((i,j-1))
-                
-    def age(self):
+
+    def age(self, GRID):
         if (self.age<AGE_LIMITE) and (self.energy >0):
             self.age +=1
         else :
@@ -93,28 +79,28 @@ class Wolves:
 
 
 
-class Grass:                                                                    # Définition de la classe GRASS (herbe)
+class Grass:                                                                        # Définition de la classe GRASS (herbe)
     def __init__(self, STATE, TIME, GRASS_REGROWTH_TIME, GRASS_GROWTH_PROBABILITY):
-        self.STATE = STATE                                                      # Propriété state (état)
-        self.GRASS_REGROWTH_TIME = GRASS_REGROWTH_TIME                          # Propriété qui définit le GRASS regrowth time (temps de repousse)
-        self.GRASS_GROWTH_PROBABILITY = GRASS_GROWTH_PROBABILITY                # Propriété qui définit la probabilité d'apparition de l'herbe
-        self.TIME = TIME                                                        # Propriété qui gère le temps de temps de repousse 
+        self.STATE = STATE                                                          # Propriété state (état)
+        self.GRASS_REGROWTH_TIME = GRASS_REGROWTH_TIME                              # Propriété qui définit le GRASS regrowth time (temps de repousse)
+        self.GRASS_GROWTH_PROBABILITY = GRASS_GROWTH_PROBABILITY                    # Propriété qui définit la probabilité d'apparition de l'herbe
+        self.TIME = TIME                                                            # Propriété qui gère le temps de temps de repousse 
 
-    def new_grass(self):                                                        # Fonction d'apparition de l'herbe POUR LES CASES VIDES
-        if self.STATE == 0:                                             # Si la case ne contient pas d'herbe
-            if random.random(0, 1) <= self.GRASS_GROWTH_PROBABILITY:                       # On la compare à notre taux d'apparition spontané
-                self.STATE = 1                                                  # Si on est inférieur on égal au taux, on fait apparaître l'herbe
+    def new_grass(self):                                                            # Fonction d'apparition de l'herbe POUR LES CASES VIDES
+        if self.STATE == 0:                                                             # Si la case ne contient pas d'herbe
+            if rd.random(0, 1) <= self.GRASS_GROWTH_PROBABILITY:                        # On la compare à notre taux d'apparition spontané
+                self.STATE = 1                                                              # Si on est inférieur on égal au taux, on fait apparaître l'herbe
                 self.TIME = 0                                                               # On réinitialise le temps de repousse de l'herbe
 
-    def regrowth(self):                                                         # Fonction de repousse 
-        if self.STATE == 0:                                             # Si la case ne contient pas d'herbe
+    def regrowth(self):                                                             # Fonction de repousse 
+        if self.STATE == 0:                                                             # Si la case ne contient pas d'herbe
             self.TIME = self.TIME + 1                                                   # On incrémente le temps de repousse
-            if self.TIME == self.GRASS_REGROWTH_TIME:                           # Si on atteint la durée de repousse
-                self.STATE = 1                                                  # On dit que l'herbe a poussé, son état passe à 1
+            if self.TIME == self.GRASS_REGROWTH_TIME:                                       # Si on atteint la durée de repousse
+                self.STATE = 1                                                              # On dit que l'herbe a poussé, son état passe à 1
 
-    def eaten_grass(self):                                                      # Détection de l'herbe mangée
+    def eaten_grass(self):                                                          # Détection de l'herbe mangée
         if isinstance(self, Sheep) == True:
             self.STATE = 0
-            self.TIME = -1                                              # On doit mettre -1 puisque cette fonction est effectuée avant new_grass et regrowth
+            self.TIME = -1                                                              # On doit mettre -1 puisque cette fonction est effectuée avant new_grass et regrowth
 
 
