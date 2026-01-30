@@ -29,7 +29,7 @@ class Sheep:
             position = []
             if j<GRID_SIZE-1 and GRID.ELT[i][j+1] == 0 :
                 position.append((i,j+1))
-            elif j>0 and GRID.ELT[i][j+1] ==0 :
+            elif j>0 and GRID.ELT[i][j+1] == 0 :
                 position.append((i,j-1))
             elif i>0 and GRID.ELT[i][j+1] == 0 :
                 position.append((i-1,j))
@@ -39,7 +39,7 @@ class Sheep:
                 self.POSITION = rd.choice(position)
         sheep = GRID.ELT[i,j]
         GRID.ELT[i,j] = 0
-        GRID.ELT[self.POSITION[0]][self.POSITION[1]]
+        GRID.ELT[self.POSITION[0]][self.POSITION[1]] = sheep
         
     def eat(self):
         self.ENERGY= self.ENERGY +SHEEP_ENERGY_FROM_GRASS
