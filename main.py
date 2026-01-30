@@ -97,7 +97,7 @@ def tour(grid):
     number_of_animals = 0                                                                       # On reset notre compteur d'animaux
     for x in GRID_SIZE:                                                                         # On parcourt les x et y
         for y in GRID_SIZE:
-            if isinstance(GRID.ELT[x][y], Sheep) or isinstance(GRID.ELT[x][y], Wolves):         # On regarde s'il y a des animaux sur notre grille
+            if isinstance(grid.ELT[x][y], Sheep) or isinstance(grid.ELT[x][y], Wolves):         # On regarde s'il y a des animaux sur notre grille
                 number_of_animals += 1
     if number_of_animals == 0:                                                                  # S'il n'y a pas d'animaux, c'est la fin de la simulation
         endgame()
