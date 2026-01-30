@@ -42,6 +42,10 @@ def tour(MAX_TURNS=500):
     # PHASE 5 : Vérification des morts???
 
     # PHASE 6 : REPRODUCTION
+    for ligne in GRID.ELT:
+        for elt in ligne:
+            if isinstance(elt, Sheep) or isinstance(elt, Wolves):
+                elt.reproduction()
     
     # PHASE 7 : AFFICHAGE DE L'ÉTAT OBTENU
 
