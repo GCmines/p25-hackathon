@@ -1,6 +1,12 @@
 import random as rd 
 GRID_SIZE = 30
 SHEEP_INITIAL_ENERGY = 20 
+SHEEP_ENERGY_LOSS_PER_TURN= 1
+REPRODUCTION_ENERGY_COST = 20
+SHEEP_REPRODUCTION_THRESHOLD = 50
+SHEEP_ENERGY_FROM_GRASS = 15
+AGE_LIMITE = 50
+
 rd.randint(1,GRID_SIZE),rd.randint(1,GRID_SIZE)
 x = rd.randint(0,1)
 self.POSITION = (i+((rd.randint(0,1))*2-1)*(x-1),j+((rd.randint(0,1))*2-1)*x)
@@ -44,12 +50,13 @@ class Sheep:
     def eat(self):
         self.ENERGY= self.ENERGY +SHEEP_ENERGY_FROM_GRASS
         
+    def energie(self):
+        self.ENERGY = self.ENERGY -SHEEP_ENERGY_LOSS_PER_TURN
 
     def age(self):
-        if (self.AGE<AGE_LIMITE) and (self.ALIVE):
+        if (self.AGE<AGE_LIMITE) and (self.ENERGY >0):
             self.AGE +=1
-            self.ENERGY = self.ENERGY -SHEEP_ENERGY_LOSS_PER_TURN
-        elif self.AGE>=AGE_LIMITE :
+        else :
             i,j = self.POSITION
             GRID.ELT[i][j] = 0
     
