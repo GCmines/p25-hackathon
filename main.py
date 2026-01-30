@@ -7,9 +7,9 @@ GRID_SIZE = 30
 def endgame():
 
 
-def game(MAX_TURNS=500):
+def game(MAX_TURNS=500):                                                                        # C'est cette fonction qui est lancée pour lancer la simulation
     # DÉROULÉ DU TOUR
-    GRID_SIZE = 30
+    GRID_SIZE = 30                                                                              # On initialise les différentes variables comme la taille de la grille
     SHEEP_INITIAL_ENERGY = 20 
     SHEEP_ENERGY_LOSS_PER_TURN= 1
     REPRODUCTION_ENERGY_COST = 20
@@ -17,17 +17,11 @@ def game(MAX_TURNS=500):
     SHEEP_ENERGY_FROM_GRASS = 15
     AGE_LIMITE = 50
 
-    turn_number = 0
-    while turn_number < MAX_TURNS:
-        turn_number += 1
-        tour()
-        number_of_animals = 0
-        for x in GRID_SIZE:                                   # On parcourt les x et y
-            for y in GRID_SIZE:
-                if isinstance(GRID.ELT[x][y], Sheep) or isinstance(GRID.ELT[x][y], Wolves):
-                    number_of_animals += 1
-        if number_of_animals == 0:
-            endgame()
+    turn_number = 0                                                                             # On initialise le compteur de tour
+    while turn_number < MAX_TURNS:                                                              # On lance la boucle de simulation
+        turn_number += 1                                                                            # On incrémente le compteur de tours
+        tour()                                                                                      # On lance la fonction qui gère les différentes phases d'un tour
+        
 
 
 def tour():
@@ -71,4 +65,10 @@ def tour():
 
 
     # PHASE 8 : VÉRIFICATION DES CONDITIONS D'ARRÊT
-
+    number_of_animals = 0                                                                       # On reset notre compteur d'animaux
+    for x in GRID_SIZE:                                                                         # On parcourt les x et y
+        for y in GRID_SIZE:
+            if isinstance(GRID.ELT[x][y], Sheep) or isinstance(GRID.ELT[x][y], Wolves):         # On regarde s'il y a des animaux sur notre grille
+                number_of_animals += 1
+    if number_of_animals == 0:                                                                  # S'il n'y a pas d'animaux, c'est la fin de la simulation
+        endgame()
