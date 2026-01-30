@@ -11,9 +11,8 @@ class Wolves:
         self.position = position
         self.energy = WOLF_INITIAL_ENERGY
         self.age = 0
-        self.ALIVE = True
 
-    def eat(self):
+    def eat(self, GRID):
         x, y = self.position
         if x != 0 and isinstance(GRID.ELT[x-1][y], Sheep) :
             return (True, (x-1,y))
@@ -26,7 +25,7 @@ class Wolves:
         return (False, (x,y))
         
 
-    def death(self):
+    def death(self, GRID):
         i,j = self.position
         if self.energy <= 0 or self.age > WOLF_MAX_AGE:
             GRID.ELT[i][j] == 0
@@ -38,8 +37,27 @@ class Wolves:
             self.energy -= REPRODUCTION_ENERGY_COST
             return True
 
+    def reproduction(self,GRID):
+        if self.energy>SHEEP_REPRODUCTION_THRESHOLD:
+            i,j = self.position
+            self.energy = self.energy - REPRODUCTION_ENERGY_COST
+            if (i+1<GRID_SIZE) and (GRID.ELT[i+1][j]==0):
+                GRID.ELT[i+1][j] = Wolves((i+1,j))
+            elif (i-1>=0) and (GRID.ELT[i-1][j]==0):
+                GRID.ELT[i-1][j] = Wolves((i-1,j))
+            elif (j+1<GRID_SIZE) and (GRID.ELT[i][j+1]==0):            
+                GRID.ELT[i][j+1] = Wolves((i,j+1))
+            elif (j-1>0) and (GRID.ELT[i][j-1]==0):            
+                GRID.ELT[i][j-1] = Wolves((i,j-1))
+                
+    def age(self):
+        if (self.age<AGE_LIMITE) and (self.energy >0):
+            self.age +=1
+        else :
+            i,j = self.position
+            GRID.ELT[i][j] = 0
 
-    def movement(self):
+    def movement(self, GRID):
         if eat(self)[0] : 
             self.position = eat(self)[1]
         else :
