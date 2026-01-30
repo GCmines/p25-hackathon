@@ -81,28 +81,27 @@ def tour(grid, nbmaxtours, touractuel):
                 
                                     
     # PHASE 2 : MISE A JOUR DE L'HERBE
-    saison = nbmaxtours//4
-    if touractuel <= nbmaxtours:
-        if touractuel < 3*saison:
-            if touractuel < 2*saison:
-                if touractuel < saison:                 # hiver
-                    GRASS_REGROWTH_TIME = 7
-                    GRASS_GROWTH_PROBABILITY = 0.08
-                else:                                   # printemps
-                    GRASS_REGROWTH_TIME = 6
-                    GRASS_GROWTH_PROBABILITY = 0.09
-            else:                                       # été
-                GRASS_REGROWTH_TIME = 5
-                GRASS_GROWTH_PROBABILITY = 0.08
-        else:                                           # automne
-            GRASS_REGROWTH_TIME = 6
-            GRASS_GROWTH_PROBABILITY = 0.09
-
+    saison = nbmaxtours//4                                                  # On détermine le nombre de tours par saison
     for ligne in grid.ELT:
         for elt in ligne:
-            elt.eaten_grass()                                     # On regarde si l'herbe a été mangée
-            elt.new_grass()                                       # On regarde si l'herbe peut apparaitre aléatoirement
-            elt.regrowth()                                        # On fait repousser l'herbe en fonction de son temps de repousse
+            if touractuel <= nbmaxtours:
+                if touractuel < 3*saison:
+                    if touractuel < 2*saison:
+                        if touractuel < saison:                             # hiver
+                            elt.GRASS_REGROWTH_TIME = 7
+                            elt.GRASS_GROWTH_PROBABILITY = 0.08
+                        else:                                               # printemps
+                            elt.GRASS_REGROWTH_TIME = 6
+                            elt.GRASS_GROWTH_PROBABILITY = 0.09
+                    else:                                                   # été
+                        elt.GRASS_REGROWTH_TIME = 5
+                        elt.GRASS_GROWTH_PROBABILITY = 0.08
+                else:                                                       # automne
+                    elt.GRASS_REGROWTH_TIME = 6
+                    elt.GRASS_GROWTH_PROBABILITY = 0.09
+            elt.eaten_grass()                                               # On regarde si l'herbe a été mangée
+            elt.new_grass()                                                 # On regarde si l'herbe peut apparaitre aléatoirement
+            elt.regrowth()                                                  # On fait repousser l'herbe en fonction de son temps de repousse
 
 
     # PHASE 3 : MOUTONS
