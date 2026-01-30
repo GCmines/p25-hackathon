@@ -50,7 +50,7 @@ class Sheep:
     def eat(self):
         self.ENERGY= self.ENERGY +SHEEP_ENERGY_FROM_GRASS
         
-    def energie(self):
+    def energy(self):
         self.ENERGY = self.ENERGY -SHEEP_ENERGY_LOSS_PER_TURN
 
     def age(self):
