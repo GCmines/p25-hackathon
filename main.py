@@ -1,5 +1,4 @@
 from entities import Sheep, Wolves, Grass
-from entities2 import Wolves, Grass
 from grid import GRID
 GRID_SIZE = 30
 
