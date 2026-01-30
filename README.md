@@ -24,8 +24,8 @@ Exécuter le programme main.py pour lancer la simulation.
 |Le nombre de moutons à l'initialisation             |   NB_SHEEP_INIT                   |   50|
 |Le nombre de loups à l'initialisation               |   NB_WOLVES_INIT                  |   10|
 |La proportion d'herbe à l'initialisation            |   INITIAL_GRASS_COVERAGE          |   0.3|
-|GRASS_REGROWTH_TIME
-|GRASS_GROWTH_PROBABILITY
+|Le temps de repousse de l'herbe                     |   GRASS_REGROWTH_TIME             |   7|
+|La probabilité d'apparition de l'herbe              |   GRASS_GROWTH_PROBABILITY        |0.08|
 
 
 
