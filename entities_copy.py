@@ -20,7 +20,6 @@ class Sheep:                                                                    
         self.POSITION = (POSITION)
         self.AGE = 0
         self.ENERGY = SHEEP_INITIAL_ENERGY
-        self.ALIVE = True
     
     def deplacement(self,GRID):                                                             # On créé la fonction de déplacement du mouton
         i,j = self.POSITION
@@ -169,7 +168,7 @@ class Grass:                                                                    
 
     def new_grass(self):                                                            # Fonction d'apparition de l'herbe POUR LES CASES VIDES
         if self.STATE == 0:                                                             # Si la case ne contient pas d'herbe
-            if rd.random(0, 1) <= self.GRASS_GROWTH_PROBABILITY:                        # On la compare à notre taux d'apparition spontané
+            if rd.random() <= self.GRASS_GROWTH_PROBABILITY:                            # On la compare à notre taux d'apparition spontané
                 self.STATE = 1                                                              # Si on est inférieur on égal au taux, on fait apparaître l'herbe
                 self.TIME = 0                                                               # On réinitialise le temps de repousse de l'herbe
 
