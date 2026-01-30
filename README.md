@@ -1,3 +1,4 @@
+FAIRE CTRL+SHIFT+V si le markdown apparaît sans mise en forme
 # EXPLICATIONS
 
 ## LANCER LA SIMULATION
