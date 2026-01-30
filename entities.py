@@ -3,7 +3,7 @@ from grid import GRID
 
 
 
-
+# On initialise certaines variables, voir le README pour avoir les explications
 GRID_SIZE = 30
 SHEEP_INITIAL_ENERGY = 20 
 SHEEP_ENERGY_LOSS_PER_TURN= 1
@@ -15,14 +15,14 @@ WOLF_MAX_AGE = 40
 WOLF_INITIAL_ENERGY = 40
 
 
-class Sheep:
-    def __init__(self,POSITION):
+class Sheep:                                                                                # On définit la classe Sheep (mouton)
+    def __init__(self,POSITION):                                                            # On initialise les paramètres initiaux des moutons
         self.POSITION = (POSITION)
         self.AGE = 0
         self.ENERGY = SHEEP_INITIAL_ENERGY
         self.ALIVE = True
     
-    def deplacement(self,GRID):
+    def deplacement(self,GRID):                                                             # On créé la fonction de déplacement du mouton
         i,j = self.POSITION
         if j<GRID_SIZE-1 and GRID.GRASS[i][j+1].STATE == 1 and GRID.ELT[i][j+1] == 0:
             self.POSITION = (i,j+1)
@@ -52,20 +52,20 @@ class Sheep:
         GRID.ELT[i,j] = 0
         GRID.ELT[self.POSITION[0]][self.POSITION[1]] = sheep
         
-    def eat(self):
+    def eat(self):                                                                          # On créé la fonction qui permet au mouton de gagner de l'énergie en mangeant de l'herbe
         self.ENERGY= self.ENERGY +SHEEP_ENERGY_FROM_GRASS
         
-    def energy(self):
+    def energy(self):                                                                       # On créé la fonction qui fait perdre de l'énergie au mouton à chaque tour
         self.ENERGY = self.ENERGY -SHEEP_ENERGY_LOSS_PER_TURN
 
-    def age(self):
+    def age(self):                                                                          # On créé la fonction qui gère l'âge du mouton et qui vérifie s'il doit mourir
         if (self.AGE<SHEEP_MAX_AGE) and (self.ENERGY >0):
             self.AGE +=1
         else :
             i,j = self.POSITION
             GRID.ELT[i][j] = 0
     
-    def reproduction(self,GRID):
+    def reproduction(self,GRID):                                                            # On créé la fonction de reproduction du mouton
         if self.ENERGY>SHEEP_REPRODUCTION_THRESHOLD:
             i,j = self.POSITION
             self.ENERGY = self.ENERGY - REPRODUCTION_ENERGY_COST
@@ -81,13 +81,13 @@ class Sheep:
     
 
 
-class Wolves:
-    def __init__(self, position):
+class Wolves:                                                                               # On créé la classe Wolves (Loups)
+    def __init__(self, position):                                                           # On initialise les paramètres initiaux du loup
         self.position = position
         self.energy = WOLF_INITIAL_ENERGY
         self.age = 0
 
-    def eat(self, GRID):
+    def eat(self, GRID):                                                                    # On créé la fonction qui détecte les moutons à manger
         x, y = self.position
         if x != 0 and isinstance(GRID.ELT[x-1][y], Sheep) :
             GRID.ELT[x][y] = 0
@@ -103,7 +103,7 @@ class Wolves:
             return (True, (x,y+1))
         return (False, (x,y))
 
-    def reproduction(self,GRID):
+    def reproduction(self,GRID):                                                            # On créé la fonction de reproduction du loup
         if self.energy>SHEEP_REPRODUCTION_THRESHOLD:
             i,j = self.position
             self.energy = self.energy - REPRODUCTION_ENERGY_COST
@@ -116,14 +116,14 @@ class Wolves:
             elif (j-1>0) and (GRID.ELT[i][j-1]==0):            
                 GRID.ELT[i][j-1] = Wolves((i,j-1))
 
-    def age(self, GRID):
+    def age(self, GRID):                                                                    # On créé la fonction qui gère l'âge du loup et qui vérifie s'il doit mourir
         if (self.age<WOLF_MAX_AGE) and (self.energy >0):
             self.age +=1
         else :
             i,j = self.position
             GRID.ELT[i][j] = 0
 
-    def movement(self, GRID):
+    def movement(self, GRID):                                                               # On créé la fonction
         if eat(self)[0] : 
             self.position = eat(self)[1]
             x, y = self.position 
