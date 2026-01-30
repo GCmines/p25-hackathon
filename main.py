@@ -26,6 +26,7 @@ def game(MAX_TURNS=500):
     NB_SHEEP_INIT = 50
     NB_WOLVES_INIT = 10
     NB_GRASS_INIT = int(0.3*GRID_SIZE**2)
+    WOLF_INITIAL_ENERGY = 40
     
     ## initialisation
     grid = GRID()
@@ -53,7 +54,7 @@ def game(MAX_TURNS=500):
     
     init_sheep_wolves_grass(NB_SHEEP_INIT,NB_WOLVES_INIT,NB_GRASS_INIT,grid)
     pyxel.init(GRID_SIZE,GRID_SIZE,title = "Ecosystème",fps = 10)
-    pyxel.show()    
+    number_of_animals = 1
     turn_number = 0
     while (turn_number < MAX_TURNS) and (number_of_animals>0):
         turn_number += 1
@@ -63,14 +64,14 @@ def game(MAX_TURNS=500):
             for y in GRID_SIZE:
                 if isinstance(GRID.ELT[x][y], Sheep) or isinstance(GRID.ELT[x][y], Wolves):
                     number_of_animals += 1
-
+        pyxel.run(tour(grid),draw(grid,GRID_SIZE))
     
         
     endgame()
 
 
 def tour(grid):
-
+    time.sleep(1)
     # PHASE 1 : INCREMENT DE L'AGE DES ANIMAUX
     for ligne in grid.ELT:
         for elt in ligne:
@@ -110,18 +111,13 @@ def tour(grid):
         for elt in ligne:
             if isinstance(elt, Sheep) or isinstance(elt, Wolves):
                 elt.reproduction()
-    
-    # PHASE 7 : AFFICHAGE DE L'ÉTAT OBTENU
-    pyxel.run(draw(grid,GRID_SIZE))
-    
-    # faire le lien entre classe et affichage
-  
+
 
     # PHASE 8 : VÉRIFICATION DES CONDITIONS D'ARRÊT
     number_of_animals = 0                                                                       # On reset notre compteur d'animaux
-    for x in GRID_SIZE:                                                                         # On parcourt les x et y
-        for y in GRID_SIZE:
-            if isinstance(grid.ELT[x][y], Sheep) or isinstance(grid.ELT[x][y], Wolves):         # On regarde s'il y a des animaux sur notre grille
+    for ligne in grid.ELT:                                                                         # On parcourt les x et y
+        for elt in ligne:
+            if isinstance(elt, Sheep) or isinstance(elt, Wolves):         # On regarde s'il y a des animaux sur notre grille
                 number_of_animals += 1
     if number_of_animals == 0:                                                                  # S'il n'y a pas d'animaux, c'est la fin de la simulation
         endgame()
