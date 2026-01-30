@@ -60,9 +60,9 @@ def game(MAX_TURNS=500):
         turn_number += 1
         tour(grid)
         number_of_animals = 0
-        for x in GRID_SIZE:                                   # On parcourt les x et y
-            for y in GRID_SIZE:
-                if isinstance(GRID.ELT[x][y], Sheep) or isinstance(GRID.ELT[x][y], Wolves):
+        for ligne in grid.ELT:
+            for elt in ligne:
+                if isinstance(elt, Sheep) or isinstance(elt, Wolves):
                     number_of_animals += 1
         pyxel.run(tour(grid),draw(grid,GRID_SIZE))
     
